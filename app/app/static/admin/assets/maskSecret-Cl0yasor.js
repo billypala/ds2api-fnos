@@ -1,0 +1,1 @@
+function e(e){let t=String(e??``);return t?t.length<=4?`*`.repeat(t.length):`${t.slice(0,2)}****${t.slice(-2)}`:``}export{e as t};

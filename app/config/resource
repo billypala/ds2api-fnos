@@ -1,9 +1,11 @@
 {
-  "docker-project": {
-    "projects": [
+  "data-share": {
+    "shares": [
       {
-        "name": "ds2api",
-        "path": "docker"
+        "name": "ds2api/config"
+      },
+      {
+        "name": "ds2api/data"
       }
     ]
   }

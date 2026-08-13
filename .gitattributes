@@ -13,3 +13,10 @@
 # 生命周期脚本（无扩展名，按路径强制 LF）
 /app/cmd/** text eol=lf
 /app/manifest text eol=lf
+
+# 二进制文件（避免 CRLF 转换与 diff 噪音）
+/app/app/ds2api binary
+/app/app/static/admin/** binary
+/app/ICON.PNG binary
+/app/ICON_256.PNG binary
+/app/app/ui/images/*.png binary
