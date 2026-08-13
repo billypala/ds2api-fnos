@@ -1,0 +1,15 @@
+# 统一 LF 换行（fnOS 生命周期脚本必须为 LF，CRLF 会导致 bash 执行失败）
+* text=auto
+
+*.sh text eol=lf
+*.bash text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.ini text eol=lf
+
+# 生命周期脚本（无扩展名，按路径强制 LF）
+/app/cmd/** text eol=lf
+/app/manifest text eol=lf

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+CONTAINER_NAME="ds2api"
+
+is_running() {
+  docker inspect "$CONTAINER_NAME" >/dev/null 2>&1 || return 1
+  docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null | grep -q 'true'
+}
+
+case "$1" in
+  start)
+    # Docker 应用由应用中心依据 docker-project 资源拉起，此处无需操作
+    exit 0
+    ;;
+  stop)
+    exit 0
+    ;;
+  status)
+    if is_running; then
+      exit 0
+    fi
+    exit 3
+    ;;
+  *)
+    echo "Unknown command: $1" > "$TRIM_TEMP_LOGFILE"
+    exit 1
+    ;;
+esac

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+### 安装后执行：生成 config.json（首次）与 .env（管理密钥）
+
+DATA_DIR="${TRIM_PKGVAR}"
+CONFIG_FILE="${DATA_DIR}/config.json"
+ENV_FILE="${DATA_DIR}/.env"
+
+mkdir -p "${DATA_DIR}/data"
+
+# 首次安装：从应用包内模板生成 config.json
+if [ ! -f "${CONFIG_FILE}" ]; then
+  if [ -f "${TRIM_APPDEST}/docker/config.example.json" ]; then
+    cp "${TRIM_APPDEST}/docker/config.example.json" "${CONFIG_FILE}"
+    chmod 600 "${CONFIG_FILE}"
+  else
+    echo "config.example.json not found in app package." > "${TRIM_TEMP_LOGFILE}"
+    exit 1
+  fi
+fi
+
+# 管理密钥：优先使用安装向导输入值，未提供则随机生成
+ADMIN_KEY="${ds2api_admin_key:-}"
+if [ -z "${ADMIN_KEY}" ]; then
+  ADMIN_KEY="$(head -c 18 /dev/urandom | od -An -tx1 | tr -d ' \n')"
+fi
+
+{
+  echo "DS2API_ADMIN_KEY=${ADMIN_KEY}"
+  echo "TZ=Asia/Shanghai"
+  echo "LOG_LEVEL=INFO"
+} > "${ENV_FILE}"
+chmod 600 "${ENV_FILE}"
+
+exit 0

@@ -1,0 +1,16 @@
+{
+  ".url": {
+    "ds2api.admin": {
+      "title": "DS2API 管理台",
+      "icon": "images/icon_{0}.png",
+      "type": "iframe",
+      "protocol": "http",
+      "port": "5001",
+      "url": "/admin",
+      "allUsers": false,
+      "control": {
+        "accessPerm": "readonly"
+      }
+    }
+  }
+}

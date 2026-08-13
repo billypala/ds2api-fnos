@@ -1,0 +1,8 @@
+{
+    "defaults":
+    {
+        "run-as": "package"
+    },
+    "username": "docker-ds2api",
+    "groupname": "docker-ds2api"
+}

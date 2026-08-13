@@ -1,0 +1,103 @@
+{
+  "_comment": "DS2API 配置文件示例 - 复制为 config.json 使用",
+  "_doc": "详细文档: https://github.com/CJackHwang/ds2api",
+  "keys": [
+    "your-api-key-1",
+    "your-api-key-2"
+  ],
+  "api_keys": [
+    {
+      "key": "your-api-key-1",
+      "name": "主 API Key",
+      "remark": "给 OpenAI 客户端使用"
+    },
+    {
+      "key": "your-api-key-2",
+      "name": "备用 API Key",
+      "remark": "压测或临时调试"
+    }
+  ],
+  "accounts": [
+    {
+      "_comment": "邮箱登录方式",
+      "name": "主账号",
+      "remark": "优先用于生产流量",
+      "email": "example1@example.com",
+      "password": "your-password-1",
+      "locale": "zh_CN"
+    },
+    {
+      "_comment": "邮箱登录方式 - 账号2",
+      "name": "备用账号",
+      "email": "example2@example.com",
+      "password": "your-password-2"
+    },
+    {
+      "_comment": "手机号登录方式（中国大陆）",
+      "mobile": "12345678901",
+      "password": "your-password-3"
+    }
+  ],
+  "model_aliases": {
+    "gpt-4o": "deepseek-v4-flash",
+    "gpt-5.5": "deepseek-v4-flash",
+    "gpt-5.3-codex": "deepseek-v4-pro",
+    "o3": "deepseek-v4-pro"
+  },
+  "responses": {
+    "store_ttl_seconds": 900
+  },
+  "current_input_file": {
+    "enabled": false,
+    "min_chars": 0
+  },
+  "thinking_injection": {
+    "enabled": false,
+    "prompt": ""
+  },
+  "expert_prompt_segment": {
+    "enabled": true,
+    "max_chars": 160000
+  },
+  "expert_text_file_inline": {
+    "enabled": true,
+    "max_file_bytes": 3145728,
+    "allowed_extensions": [
+      ".txt", ".md", ".markdown",
+      ".csv", ".tsv",
+      ".json", ".jsonl",
+      ".xml", ".yaml", ".yml",
+      ".ini", ".cfg", ".conf", ".properties", ".toml",
+      ".log", ".sql",
+      ".sh", ".bash", ".zsh", ".fish", ".ps1", ".bat", ".cmd",
+      ".py", ".js", ".ts", ".tsx", ".jsx",
+      ".html", ".htm", ".css",
+      ".go", ".c", ".cpp", ".h", ".java", ".kt", ".rs", ".rb", ".php", ".swift"
+    ]
+  },
+  "auto_route_vision": {
+    "enabled": false
+  },
+  "embeddings": {
+    "provider": "deterministic"
+  },
+  "admin": {
+    "jwt_expire_hours": 24
+  },
+  "runtime": {
+    "account_max_inflight": 2,
+    "account_max_queue": 0,
+    "global_max_inflight": 0,
+    "token_refresh_interval_hours": 6
+  },
+  "auto_delete": {
+    "mode": "none"
+  },
+  "mihomo": {
+    "_comment": "Mihomo 代理桥（一号一 IP）。enabled=true 后 ds2api 启动时自动拉起 mihomo 子进程；推荐在 WebUI「代理桥」页管理订阅与账号绑定。订阅与端口映射改由与 config.json 同目录的 mihomo_subscriptions.json 独立存放（旧版写在 config.json 中的 subscriptions/port_map 仍可读取，下次保存时自动迁移）。mihomo 二进制缺失时可在「代理桥」页一键下载到根目录。详见 docs/MIHOMO_BRIDGE.md",
+    "enabled": false,
+    "binary_path": "",
+    "base_port": 10801,
+    "api_port": 19090
+  }
+}

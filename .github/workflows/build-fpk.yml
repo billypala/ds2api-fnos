@@ -1,0 +1,42 @@
+name: build-fpk
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install pillow
+
+      - name: Fetch fnpack
+        run: bash scripts/fetch-fnpack.sh
+
+      - name: Generate icons
+        run: python scripts/gen_icons.py
+
+      - name: Build fpk
+        run: ./tools/fnpack build --directory app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ds2api.fpk
+          path: ds2api.fpk
+
+      - name: Publish to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ds2api.fpk
+          generate_release_notes: true

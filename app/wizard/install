@@ -1,0 +1,18 @@
+[
+  {
+    "stepTitle": "DS2API 配置",
+    "items": [
+      {
+        "type": "tips",
+        "helpText": "DS2API 将 DeepSeek Web 对话转换为 OpenAI / Claude / Gemini / Ollama 兼容 API。安装完成后通过桌面图标打开管理台（/admin），使用下方密钥登录，并配置 DeepSeek 账号与 API Key。"
+      },
+      {
+        "type": "password",
+        "field": "ds2api_admin_key",
+        "label": "管理台密钥（可选）",
+        "initValue": "",
+        "description": "留空将自动生成随机密钥并保存到数据目录，可随时在管理台登录后修改。"
+      }
+    ]
+  }
+]

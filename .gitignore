@@ -1,0 +1,24 @@
+# 构建产物
+ds2api.fpk
+dist/
+build/
+
+# 构建时由 scripts/gen_icons.py 生成的图标
+app/ICON.PNG
+app/ICON_256.PNG
+app/app/ui/images/*.png
+
+# 工具（构建时自动下载）
+tools/
+
+# Python
+__pycache__/
+*.pyc
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 本地环境
+.env
+*.local

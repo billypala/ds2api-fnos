@@ -1,0 +1,21 @@
+services:
+  ds2api:
+    image: ouqiting/ds2api:latest
+    container_name: ds2api
+    restart: always
+    user: "0:0"
+    # 代理桥（Mihomo 一号一 IP）的 SOCKS5 监听需要直落宿主机，
+    # 使用 host 网络模式避免 bridge 网络/端口映射隔离导致 Connection Refused。
+    # 监听端口由环境变量 PORT 控制（默认 5001）。
+    network_mode: host
+    volumes:
+      - "${TRIM_PKGVAR}/config.json:/data/config.json"
+      - "${TRIM_PKGVAR}/data:/app/data"
+      - "/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt:ro"
+    environment:
+      - TZ=Asia/Shanghai
+      - LOG_LEVEL=INFO
+      - PORT=${TRIM_SERVICE_PORT}
+      - DS2API_CONFIG_PATH=/data/config.json
+    env_file:
+      - "${TRIM_PKGVAR}/.env"

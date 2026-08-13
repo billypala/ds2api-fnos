@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4D6BFE"/>
+      <stop offset="100%" stop-color="#17265E"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="320" height="320" rx="70" fill="url(#bg)"/>
+
+  <!-- 顶部源节点 -->
+  <circle cx="160" cy="32" r="11" fill="#ffffff"/>
+
+  <!-- 闪电（网关/转换速度感） -->
+  <polygon points="192,51 106,179 157,179 128,282 224,147 173,147 208,51" fill="#ffffff"/>
+
+  <!-- 底部链路弧线（API 桥接感） -->
+  <path d="M 92 242 A 68 68 0 0 0 228 242" fill="none" stroke="#ffffff"
+        stroke-width="14" stroke-linecap="round"/>
+</svg>

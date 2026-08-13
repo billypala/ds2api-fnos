@@ -1,0 +1,10 @@
+{
+  "docker-project": {
+    "projects": [
+      {
+        "name": "ds2api",
+        "path": "docker"
+      }
+    ]
+  }
+}
