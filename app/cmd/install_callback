@@ -7,13 +7,13 @@ CONFIG_FILE="${DATA_DIR}/config.json"
 
 mkdir -p "${DATA_DIR}"
 
-# 首次安装：从包内模板复制 config.json
+# 首次安装：从包内模板复制 config.json（fnpack 打包后 app.tgz 内部路径已剥掉 app/ 前缀）
 if [ ! -f "${CONFIG_FILE}" ]; then
-  if [ -f "${TRIM_APPDEST}/app/config.example.json" ]; then
-    cp "${TRIM_APPDEST}/app/config.example.json" "${CONFIG_FILE}"
+  if [ -f "${TRIM_APPDEST}/config.example.json" ]; then
+    cp "${TRIM_APPDEST}/config.example.json" "${CONFIG_FILE}"
     chmod 600 "${CONFIG_FILE}"
   else
-    echo "config.example.json not found in app package." > "${TRIM_TEMP_LOGFILE}"
+    echo "config.example.json not found in app package (looked at ${TRIM_APPDEST}/config.example.json)." > "${TRIM_TEMP_LOGFILE}"
     exit 1
   fi
 fi
@@ -28,8 +28,8 @@ fi
   echo "TRIM_SERVICE_PORT: ${TRIM_SERVICE_PORT:-<unset>}"
   echo "ds2api_admin_key (length): ${#ds2api_admin_key}"
   echo "config.json: ${CONFIG_FILE} ($(if [ -f "${CONFIG_FILE}" ]; then echo "exists, $(wc -c < "${CONFIG_FILE}") bytes"; else echo "missing"; fi))"
-  echo "二进制: ${TRIM_APPDEST}/app/ds2api ($(if [ -x "${TRIM_APPDEST}/app/ds2api" ]; then echo "executable"; else echo "NOT executable"; fi))"
-  echo "WebUI: ${TRIM_APPDEST}/app/static/admin ($(ls "${TRIM_APPDEST}/app/static/admin" 2>/dev/null | wc -l) files)"
+  echo "二进制: ${TRIM_APPDEST}/ds2api ($(if [ -x "${TRIM_APPDEST}/ds2api" ]; then echo "executable"; else echo "NOT executable"; fi))"
+  echo "WebUI: ${TRIM_APPDEST}/static/admin ($(ls "${TRIM_APPDEST}/static/admin" 2>/dev/null | wc -l) entries)"
   echo "==============================="
 } >> "${TRIM_TEMP_LOGFILE:-/tmp/ds2api-install.log}" 2>&1
 

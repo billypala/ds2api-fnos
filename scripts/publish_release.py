@@ -12,7 +12,9 @@ if not TOKEN:
     sys.exit(1)
 
 REPO = "billypala/ds2api-fnos"
-FPK = sys.argv[1] if len(sys.argv) > 1 else "ds2api.fpk"
+TAG = sys.argv[1] if len(sys.argv) > 1 else "v3.7.2"
+FPK = sys.argv[2] if len(sys.argv) > 2 else "ds2api.fpk"
+NAME = sys.argv[3] if len(sys.argv) > 3 else f"DS2API {TAG} for 飞牛 fnOS"
 
 def req(url, method="GET", data=None, content_type=None, raw=False):
     headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github+json"}
@@ -36,44 +38,44 @@ def req(url, method="GET", data=None, content_type=None, raw=False):
     except urllib.error.HTTPError as e:
         return e.code, e.read()
 
-# 1. 创建 Release
-print("===== 创建 Release v3.7.1 =====")
-release_payload = {
-    "tag_name": "v3.7.1",
-    "target_commitish": "main",
-    "name": "DS2API v3.7.1 for 飞牛 fnOS (修复安装时序 bug)",
-    "body": (
-        "## v3.7.1（推荐）\n\n"
-        "修复 **v3.7.0 安装时 `env file ... .env not found` 的问题**。\n\n"
-        "### 修复内容\n\n"
-        "- 引入 **init 容器**（alpine）从包内 target 模板复制 `config.json` 到 PKGVAR，"
-        "解耦 fnOS install_callback 时序依赖\n"
-        "- `DS2API_ADMIN_KEY` 改用 wizard 必填变量直接注入 compose environment"
-        "（不再依赖 install_callback 创建 .env）\n"
-        "- 移除 compose `env_file` 引用\n"
-        "- wizard `ds2api_admin_key` 改为必填（≥8 位）\n"
-        "- `cmd/install_callback` 简化为仅记录诊断日志\n\n"
-        "### 安装\n\n"
-        "1. 下载 `ds2api.fpk`\n"
-        "2. 飞牛应用中心 → 手动安装 → 选择文件\n"
-        "3. **必须**设置管理台密钥（≥8 位，妥善保存）\n"
-        "4. 桌面「DS2API 管理台」→ `/admin` 登录\n\n"
-        "### 上游\n\n"
-        "- ouqiting/ds2api v3.7.0 · AGPL-3.0\n"
-        "- 镜像：ouqiting/ds2api:latest（x86_64 直接可用）\n"
-        "- 源码构建：`./build.sh` 或 `build.ps1`"
-    ),
-    "draft": False,
-    "prerelease": False,
-}
-status, body = req(f"https://api.github.com/repos/{REPO}/releases", method="POST", data=release_payload)
-print(f"HTTP {status}")
-if status not in (200, 201):
-    print("body:", body.decode("utf-8", errors="replace")[:1000])
-    sys.exit(1)
-rel = json.loads(body)
-rel_id = rel["id"]
-print(f"Release id: {rel_id}")
+# 1. 检查 release 是否已存在
+print(f"===== 检查 Release {TAG} =====")
+status, body = req(f"https://api.github.com/repos/{REPO}/releases/tags/{TAG}")
+if status == 200:
+    rel = json.loads(body)
+    rel_id = rel["id"]
+    print(f"Release {TAG} 已存在 (id={rel_id})，直接复用")
+else:
+    # 2. 创建 Release
+    print(f"===== 创建 Release {TAG} =====")
+    release_payload = {
+        "tag_name": TAG,
+        "target_commitish": "main",
+        "name": NAME,
+        "body": (
+            "## DS2API Native for 飞牛 fnOS\n\n"
+            "自包含 Go 静态二进制（linux/amd64），**零 Docker 依赖**，离线可装。\n\n"
+            "### 安装\n\n"
+            "1. 下载 `ds2api.fpk`\n"
+            "2. 飞牛应用中心 → 手动安装 → 选择文件\n"
+            "3. **必须**设置管理台密钥（≥8 位）\n"
+            "4. 桌面「DS2API 管理台」→ `/admin` 登录\n\n"
+            "### 上游\n\n"
+            "- ouqiting/ds2api v3.7.0 · AGPL-3.0\n"
+            "- 镜像：ouqiting/ds2api:latest（x86_64 直接可用）\n"
+            "- 源码构建：`./build.sh` 或 `build.ps1`"
+        ),
+        "draft": False,
+        "prerelease": False,
+    }
+    status, body = req(f"https://api.github.com/repos/{REPO}/releases", method="POST", data=release_payload)
+    print(f"HTTP {status}")
+    if status not in (200, 201):
+        print("body:", body.decode("utf-8", errors="replace")[:1000])
+        sys.exit(1)
+    rel = json.loads(body)
+    rel_id = rel["id"]
+    print(f"Release id: {rel_id}")
 print(f"URL: {rel['html_url']}")
 
 # 2. 上传资产

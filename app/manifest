@@ -1,5 +1,5 @@
 appname=ds2api
-version=3.7.0
+version=3.7.0.1
 display_name=DS2API
 desc=将 DeepSeek Web 对话转换为 OpenAI / Claude / Gemini / Ollama 兼容 API 的自托管网关，自包含 Go 静态二进制（linux/amd64），含 WebUI 管理台，零外部依赖。
 source=thirdparty

@@ -1,14 +1,15 @@
 #!/bin/bash
 
-APP_DIR="${TRIM_APPDEST}/app"
+### 注意：fnpack 打包后，app.tgz 内部路径已剥掉 app/ 前缀，
+### 所以所有资源都直接在 ${TRIM_APPDEST} 下（不是 ${TRIM_APPDEST}/app/）
+
 DATA_DIR="${TRIM_PKGVAR}"
+APP_BIN="${TRIM_APPDEST}/ds2api"
+STATIC_ADMIN_DIR="${TRIM_APPDEST}/static/admin"
+CONFIG_FILE="${DATA_DIR}/config.json"
 LOG_FILE="${DATA_DIR}/app.log"
 PID_FILE="${DATA_DIR}/app.pid"
-STATIC_ADMIN_DIR="${APP_DIR}/static/admin"
-CONFIG_FILE="${DATA_DIR}/config.json"
 SERVICE_PORT="${TRIM_SERVICE_PORT:-5001}"
-
-export PATH="${APP_DIR}:${PATH}"
 
 is_running() {
   if [ -f "${PID_FILE}" ]; then
@@ -27,9 +28,14 @@ start_app() {
     return 0
   fi
 
+  if [ ! -x "${APP_BIN}" ]; then
+    echo "Binary not found or not executable: ${APP_BIN}" > "${TRIM_TEMP_LOGFILE:-/dev/stderr}"
+    return 1
+  fi
+
   mkdir -p "${DATA_DIR}"
 
-  cd "${APP_DIR}" || exit 1
+  cd "${TRIM_APPDEST}" || exit 1
 
   DS2API_CONFIG_PATH="${CONFIG_FILE}" \
   DS2API_STATIC_ADMIN_DIR="${STATIC_ADMIN_DIR}" \
@@ -37,7 +43,7 @@ start_app() {
   PORT="${SERVICE_PORT}" \
   TZ=Asia/Shanghai \
   LOG_LEVEL=INFO \
-  nohup "${APP_DIR}/ds2api" >> "${LOG_FILE}" 2>&1 &
+  nohup "${APP_BIN}" >> "${LOG_FILE}" 2>&1 &
 
   local pid=$!
   echo "${pid}" > "${PID_FILE}"
