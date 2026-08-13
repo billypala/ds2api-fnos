@@ -27,7 +27,7 @@
 
 1. **获取 `.fpk`**：
    - 方式 A：直接下载 `release/ds2api-3.7.0.1.fpk.b64`（Base64 文本，见 [release 说明](release/README.md) 解码）
-   - 方式 B：点击上方 **Releases** 页下载 `ds2api.fpk`（发布后可用）
+   - 方式 B：点击上方 **Releases** 页下载 `ds2api-3.7.0.1.fpk`（发布后可用）
    - 方式 C：自行构建（见下节）
 2. 将 `.fpk` 上传到飞牛设备（scp / 文件管理器均可）。
 3. 打开 **fnOS 应用中心 → 手动安装** → 选择 `ds2api.fpk`。

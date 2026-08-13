@@ -32,9 +32,10 @@ Get-FileHash ds2api.fpk -Algorithm MD5
 
 ## 安装步骤
 
-1. 解码得到 `ds2api.fpk`（11,449,963 字节 / 约 11.5 MB）
+1. 解码得到 `ds2api.fpk`（11,454,848 字节 / 约 11.5 MB）
 2. 上传到飞牛设备
 3. **应用中心 → 手动安装** → 选择 `ds2api.fpk`
+4. 或直接从 [GitHub Release](https://github.com/billypala/ds2api-fnos/releases/tag/v3.7.0.1) 下载 `ds2api-3.7.0.1.fpk`
 4. 向导**必须设置管理台密钥**（≥8 位，妥善保存）
 5. 点击桌面「DS2API 管理台」→ 用密钥登录 `/admin`
 6. 管理台内配置 DeepSeek 账号与 API Key
