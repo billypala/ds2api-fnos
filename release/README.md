@@ -20,7 +20,7 @@
 
 ```bash
 base64 -d ds2api-3.7.0.1.fpk.b64 > ds2api.fpk
-md5sum ds2api.fpk   # 应为 f04353a4912fc624664705bf9165a4e7
+md5sum ds2api.fpk   # 应为 2e72a388916383940eb5ba9181f27644
 ```
 
 **Windows（PowerShell）**

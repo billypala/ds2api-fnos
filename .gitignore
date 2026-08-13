@@ -3,6 +3,9 @@ ds2api.fpk
 dist/
 build/
 
+# 图标设计临时预览（不入库）
+_icon_preview/
+
 # 构建时由 scripts/gen_icons.py 生成的图标
 app/ICON.PNG
 app/ICON_256.PNG
