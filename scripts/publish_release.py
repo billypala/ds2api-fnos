@@ -102,4 +102,4 @@ print(f"本地: {len(fpk_bytes)} bytes, MD5={local_md5}")
 print(f"下载: {len(dl)} bytes, MD5={dl_md5}")
 print("✅ 完全一致" if fpk_bytes == dl else "❌ 不一致")
 
-print(f"\n🎉 发布完成：https://github.com/{REPO}/releases/tag/v3.7.1")
+print(f"\n🎉 发布完成：https://github.com/{REPO}/releases/tag/{TAG}")
