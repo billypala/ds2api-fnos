@@ -6,18 +6,21 @@
 
 ## v3.7.0.1（待测试）
 
-`ds2api-3.7.0.1.fpk.b64` 是修复路径 bug 的 Native 应用包。
+`ds2api-3.7.0.1.fpk.b64` 是修复路径 bug 与版本号显示的 Native 应用包。
 
-**v3.7.2 → v3.7.0.1 的关键修复**：
+**相对上一版的修复**：
 - 修正 `cmd/install_callback` 与 `cmd/main` 中错误的 `${TRIM_APPDEST}/app/...` 路径
-- 正确路径：`${TRIM_APPDEST}/config.example.json`、`${TRIM_APPDEST}/ds2api`、`${TRIM_APPDEST}/static/admin`
-- 原因：fnpack 打包后，`app.tgz` 内部路径已**剥掉 `app/` 前缀**平铺到 target 下，原代码找不到 `config.example.json`
+  - 正确路径：`${TRIM_APPDEST}/config.example.json`、`${TRIM_APPDEST}/ds2api`、`${TRIM_APPDEST}/static/admin`
+  - 原因：fnpack 打包后，`app.tgz` 内部路径已**剥掉 `app/` 前缀**平铺到 target 下
+- **自编译 Go 二进制并注入 `BuildVersion=v3.7.0.1`**：之前用上游预编译包导致管理台显示 `v3.7.0`（上游 ldflags 硬编码），现在管理台会正确显示我们开发的版本号
+
+**关于示例账号**：管理台默认出现 3 个账号 `+12345678901` / `example2@example.com` / `example1@example.com` + 2 个 API Key `your-api-key-1/2`，**是上游 [config.example.json](https://github.com/ouqiting/ds2api/blob/v3.7.0/config.example.json) 模板预置的测试占位账号**（邮箱 `example.com` 是 RFC 2606 保留测试域名，密码 `your-password-*` 是占位文本，**无法真实登录 DeepSeek**）。首次安装后请在管理台删除这 3 个示例账号，再添加你自己的 DeepSeek 账号与 API Key。
 
 **Linux / macOS**
 
 ```bash
 base64 -d ds2api-3.7.0.1.fpk.b64 > ds2api.fpk
-md5sum ds2api.fpk   # 应为 830b7edba97199c389d1c73065b48c5b
+md5sum ds2api.fpk   # 应为 f04353a4912fc624664705bf9165a4e7
 ```
 
 **Windows（PowerShell）**
