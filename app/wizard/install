@@ -9,9 +9,19 @@
       {
         "type": "password",
         "field": "ds2api_admin_key",
-        "label": "管理台密钥（可选）",
+        "label": "管理台密钥",
         "initValue": "",
-        "description": "留空将自动生成随机密钥并保存到数据目录，可随时在管理台登录后修改。"
+        "description": "登录管理台 (/admin) 使用的密钥，建议 16 位以上字母+数字+符号组合，请妥善保存。",
+        "rules": [
+          {
+            "required": true,
+            "message": "请输入管理台密钥"
+          },
+          {
+            "min": 8,
+            "message": "密钥至少 8 位"
+          }
+        ]
       }
     ]
   }

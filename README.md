@@ -22,12 +22,12 @@
 ## 快速安装
 
 1. **获取 `.fpk`**：
-   - 方式 A：直接下载 `release/ds2api-3.7.0.fpk.b64`（Base64 文本，见 [release 说明](release/README.md) 解码）
-   - 方式 B：点击上方 **Releases** 页下载 `ds2api.fpk`（若有）
+   - 方式 A：直接下载 `release/ds2api-3.7.1.fpk.b64`（Base64 文本，见 [release 说明](release/README.md) 解码）
+   - 方式 B：点击上方 **Releases** 页下载 `ds2api.fpk`（推荐 v3.7.1）
    - 方式 C：自行构建（见下节）
 2. 将 `.fpk` 上传到飞牛设备（scp / 文件管理器均可）。
 3. 打开 **fnOS 应用中心 → 手动安装** → 选择 `ds2api.fpk`。
-4. 安装向导可设置**管理台密钥**（留空自动生成）。
+4. 安装向导**必须设置管理台密钥**（≥8 位，妥善保存）。
 5. 点击桌面 **DS2API 管理台** 图标，用密钥登录 `/admin`。
 
 > 首次启动会拉取镜像 `ouqiting/ds2api:latest`，视网络 1–3 分钟。国内网络慢时可先为 Docker 配置镜像加速器。
